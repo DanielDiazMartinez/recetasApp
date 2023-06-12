@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -24,14 +25,13 @@ public class Ingrediente {
     private String name;
 
     @ManyToMany(mappedBy = "ingredientes")
-    private List<Receta> recetas;
+    private List<Receta> recetas=new ArrayList<Receta>() ;
 
     public Ingrediente() {
     }
 
     public Ingrediente(String name) {
         this.name = name;
-
     }
 
     public long id() {

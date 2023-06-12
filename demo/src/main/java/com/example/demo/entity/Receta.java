@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -30,7 +31,7 @@ public class Receta {
         joinColumns = @JoinColumn(name = "receta_id"),
         inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
     )
-    private List<Ingrediente> ingredientes;
+    private List<Ingrediente> ingredientes =new ArrayList<Ingrediente>() ;;
 
     public Receta() {
     }
