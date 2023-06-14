@@ -34,7 +34,7 @@ public class Ingrediente {
         this.name = name;
     }
 
-    public long id() {
+    public long getId() {
         return id;
     }
 
@@ -42,7 +42,7 @@ public class Ingrediente {
         this.id = id;
     }
 
-    public String name() {
+    public String getName() {
         return name;
     }
 
@@ -50,7 +50,7 @@ public class Ingrediente {
         this.name = name;
     }
 
-    public List<Receta> recetas(){
+    public List<Receta> getRecetas(){
         return this.recetas;
    }
    
