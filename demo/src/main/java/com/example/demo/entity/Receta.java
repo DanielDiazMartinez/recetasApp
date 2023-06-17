@@ -31,7 +31,7 @@ public class Receta {
         joinColumns = @JoinColumn(name = "receta_id"),
         inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
     )
-    private List<Ingrediente> ingredientes =new ArrayList<Ingrediente>() ;;
+    private List<Ingrediente> ingredientes =new ArrayList<Ingrediente>() ;
 
     public Receta() {
     }
@@ -41,7 +41,7 @@ public class Receta {
         this.ingredientes = ingredientes;
     }
 
-    public long id() {
+    public long getId() {
         return id;
     }
 
@@ -49,8 +49,8 @@ public class Receta {
         this.id = id;
     }
 
-    public String name() {
-        return name;
+    public String getName() {
+        return this.name;
     }
 
     public void setName(String name) {

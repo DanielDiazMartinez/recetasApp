@@ -47,20 +47,6 @@ public class IngredienteController{
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Ingrediente> actualizarIngrediente(@PathVariable Long id, @RequestBody Ingrediente ingredienteActualizado) {
-        Ingrediente ingredienteExistente = ingredienteRepository.findById(id).orElse(null);
-        if (ingredienteExistente != null) {
-            
-            ingredienteExistente.setName(ingredienteActualizado.name());
-
-            ingredienteRepository.save(ingredienteExistente);
-
-            return ResponseEntity.ok(ingredienteExistente);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarReceta(@PathVariable Long id) {
