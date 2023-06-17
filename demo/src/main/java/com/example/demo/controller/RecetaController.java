@@ -33,7 +33,7 @@ public class RecetaController {
     @PostMapping
     public ResponseEntity<Receta> crearReceta(@RequestBody Receta receta) {
         
-        List<Ingrediente> ingredientes = receta.ingredientes();
+        List<Ingrediente> ingredientes = receta.getIngredientes();
         if (ingredientes != null && !ingredientes.isEmpty()) {
             for (Ingrediente ingrediente : ingredientes) {
                 Optional<Ingrediente> ingredienteExistente = ingredienteRepository.findById(ingrediente.getId());
@@ -68,7 +68,7 @@ public class RecetaController {
             
             recetaExistente.setName(recetaActualizada.getName());
 
-            recetaExistente.setIngredientes(recetaActualizada.ingredientes());
+            recetaExistente.setIngredientes(recetaActualizada.getIngredientes());
 
             recetaRepository.save(recetaExistente);
 

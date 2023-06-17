@@ -31,14 +31,19 @@ public class Receta {
         joinColumns = @JoinColumn(name = "receta_id"),
         inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
     )
+
     private List<Ingrediente> ingredientes =new ArrayList<Ingrediente>() ;
+
+    private String image;
 
     public Receta() {
     }
 
-    public Receta(String name, List<Ingrediente> ingredientes) {
+    public Receta(String name, String image, List<Ingrediente> ingredientes) {
         this.name = name;
+        this.image=image;
         this.ingredientes = ingredientes;
+        
     }
 
     public long getId() {
@@ -57,15 +62,26 @@ public class Receta {
         this.name = name;
     }
 
-    public List<Ingrediente> ingredientes(){
-        return this.ingredientes;
-   }
-   
+    
+    public List<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
     public void setIngredientes(List<Ingrediente> ingredientes){
         this.ingredientes=ingredientes;
     }
 
    
+    
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public void addIngrediente(Ingrediente ingrediente){
         this.ingredientes.add(ingrediente);
     }
