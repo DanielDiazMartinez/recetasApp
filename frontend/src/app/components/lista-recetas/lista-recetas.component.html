@@ -1,0 +1,10 @@
+<div *ngFor="let receta of recetasRandom" class="receta-container">
+    <h2>{{ receta.name }}</h2>
+    <img [src]="receta.imagen" alt="Imagen de la receta" />
+    <ul>
+      <li *ngFor="let ingrediente of receta.ingredientes">{{ ingrediente.name }}
+        <img [src]="ingrediente.imagen"/>
+      </li>
+    </ul>
+</div>
+  
