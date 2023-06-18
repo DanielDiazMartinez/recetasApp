@@ -20,5 +20,8 @@ export class ListaRecetasComponent {
     
   }
   
+  agregarFavorito(receta:RecetaDTO){
+    this.servicio.addFavoritos(receta);
+  }
 
 }

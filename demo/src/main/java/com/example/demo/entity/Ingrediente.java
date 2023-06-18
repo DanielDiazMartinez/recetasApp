@@ -32,9 +32,10 @@ public class Ingrediente {
     public Ingrediente() {
     }
 
-    public Ingrediente(String name,String image) {
+    public Ingrediente(String name,String image,List<Receta> recetas) {
         this.name = name;
         this.image=image;
+        this.recetas=recetas;
     }
 
     public long getId() {
@@ -52,11 +53,11 @@ public class Ingrediente {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public List<Receta> getRecetas(){
-        return this.recetas;
-   }
-   
+        return recetas;
+    }
+
     public void setRecetas(List<Receta> recetas){
         this.recetas=recetas;
     }

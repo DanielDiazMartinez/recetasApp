@@ -34,14 +34,12 @@ public class Receta {
 
     private List<Ingrediente> ingredientes =new ArrayList<Ingrediente>() ;
 
-    private String image;
-
     public Receta() {
     }
 
     public Receta(String name, String image, List<Ingrediente> ingredientes) {
         this.name = name;
-        this.image=image;
+
         this.ingredientes = ingredientes;
         
     }
@@ -72,15 +70,7 @@ public class Receta {
     }
 
    
-    
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public void addIngrediente(Ingrediente ingrediente){
         this.ingredientes.add(ingrediente);

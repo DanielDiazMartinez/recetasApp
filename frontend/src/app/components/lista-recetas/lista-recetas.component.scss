@@ -1,12 +1,11 @@
 @media (min-width: 1536px) {
   .container {
     max-width: 100%;
-    
+  
   }
 }
 .container {
   margin-left: 200px;
-
   width: calc(100% - 200px);
 }
 
@@ -40,6 +39,10 @@ img {
   margin-bottom: 10px;
 }
 
+.boton-favoritos {
+  width: 30px; /* Ajusta el ancho según tus necesidades */
+  height: 30px; /* Ajusta la altura según tus necesidades */
+}
 ul {
   list-style-type: disc;
   margin-left: 20px;
