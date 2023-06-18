@@ -9,14 +9,15 @@ import { EdamamService } from 'src/app/services/edamam.service';
 })
 
 export class ListaRecetasComponent {
+  
 
   recetasRandom!: RecetaDTO[];
-
+  
   constructor(private servicio: EdamamService) {}
 
   ngOnInit() {
     this.servicio.obtenerRecetasRandom().subscribe(data=>this.recetasRandom=data);
-    console.log(this.recetasRandom);
+    
   }
   
 
