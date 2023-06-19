@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { BarraLateralComponent } from './components/barra-lateral/barra-lateral.component';
 import { ListaRecetasComponent } from './components/lista-recetas/lista-recetas.component';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { CrearRecetaComponent } from './components/crear-receta/crear-receta.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BarraLateralComponent,
     ListaRecetasComponent,
-    InicioComponent
+    InicioComponent,
+    CrearRecetaComponent
   ],
   imports: [
     BrowserModule,
