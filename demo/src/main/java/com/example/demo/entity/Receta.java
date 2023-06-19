@@ -18,31 +18,47 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "recetas") 
 public class Receta {
 
-    @Id 
-    @GeneratedValue(strategy = GenerationType.AUTO) 
+    //Entity receta con relacion maytomany con ingrediente
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotBlank(message = "Name is mandatory") 
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @ManyToMany
     @JoinTable(
-        name = "receta_ingredientes",
-        joinColumns = @JoinColumn(name = "receta_id"),
-        inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
-    )
-
-    private List<Ingrediente> ingredientes =new ArrayList<Ingrediente>() ;
+        name = "receta_ingrediente", 
+        joinColumns = @JoinColumn(name = "receta_id"), 
+        inverseJoinColumns = @JoinColumn(name = "ingrediente_id"))
+    private List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 
     public Receta() {
+    }
+
+    public Receta(String name) {
+        this.name = name;
     }
 
     public Receta(String name, List<Ingrediente> ingredientes) {
         this.name = name;
         this.ingredientes = ingredientes;
-        
     }
 
+    public Receta(long id, String name, List<Ingrediente> ingredientes) {
+        this.id = id;
+        this.name = name;
+        this.ingredientes = ingredientes;
+    }
+
+    public Receta(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }  
+
+
+    
     public long getId() {
         return id;
     }
@@ -52,25 +68,33 @@ public class Receta {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    
-    public List<Ingrediente> getIngredientes() {
+   public List<Ingrediente> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(List<Ingrediente> ingredientes){
-        this.ingredientes=ingredientes;
-    }
+    public void setIngredientes(List<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+   }
 
     @Override
     public String toString() {
-        return "Receta [id=" + id + ", name=" + name + ", ingredientes=" + ingredientes + "]";
+        return "Receta{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", ingredientes=" + ingredientes +
+                '}';
     }
+
+
+
+
+
 
 }

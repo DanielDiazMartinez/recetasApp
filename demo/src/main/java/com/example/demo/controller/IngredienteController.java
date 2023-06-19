@@ -37,25 +37,4 @@ public class IngredienteController{
         return ResponseEntity.status(HttpStatus.CREATED).body(ingrediente);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Ingrediente> obtenerRecetaPorId(@PathVariable Long id) {
-        Ingrediente ingrediente = ingredienteRepository.findById(id).orElse(null);
-        if (ingrediente != null) {
-            return ResponseEntity.ok(ingrediente);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarReceta(@PathVariable Long id) {
-        Ingrediente ingrediente = ingredienteRepository.findById(id).orElse(null);
-        if (ingrediente != null) {
-            ingredienteRepository.delete(ingrediente);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
 }

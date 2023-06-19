@@ -17,16 +17,17 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "ingredientes") 
 public class Ingrediente {
 
-    @Id 
-    @GeneratedValue(strategy = GenerationType.AUTO) 
+    //entitny que tenga relacion manytomany con receta y que al crear un ingrediente se agregue la receta que pertenece
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotBlank(message = "Name is mandatory") 
+    @NotBlank(message = "Name is mandatory")    
     private String name;
 
     @ManyToMany(mappedBy = "ingredientes")
-    private List<Receta> recetas=new ArrayList<Receta>() ;
-
+    private List<Receta> recetas = new ArrayList<Receta>();
 
     public Ingrediente() {
     }
@@ -35,31 +36,26 @@ public class Ingrediente {
         this.name = name;
     }
 
-    public long getId() {
-        return id;
+    public Ingrediente(String name, List<Receta> recetas) {
+        this.name = name;
+        this.recetas = recetas;
     }
 
-    public void setId(long id) {
+    public Ingrediente(long id, String name, List<Receta> recetas) {
         this.id = id;
+        this.name = name;
+        this.recetas = recetas;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
+
     
-    public List<Receta> getRecetas(){
-        return recetas;
-    }
-
-   
-    @Override
-    public String toString() {
-        return "Ingrediente [id=" + id + ", name=" + name + ", recetas=" + recetas + "]";
-    }
-
-  
 }
