@@ -47,5 +47,9 @@ export class EdamamService {
         })
       );
   }
+
+  addFavoritos(receta:RecetaDTO){
+    return this.http.post(this.urlAPI,receta)
+  }
   
 }

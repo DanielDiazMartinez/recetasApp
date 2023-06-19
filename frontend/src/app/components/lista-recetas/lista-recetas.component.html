@@ -1,10 +1,18 @@
-<div *ngFor="let receta of recetasRandom" class="receta-container">
-    <h2>{{ receta.name }}</h2>
-    <img [src]="receta.imagen" alt="Imagen de la receta" />
-    <ul>
-      <li *ngFor="let ingrediente of receta.ingredientes">{{ ingrediente.name }}
-        <img [src]="ingrediente.imagen"/>
-      </li>
-    </ul>
-</div>
+<div class="container">
+    <div class="tarjeta-container">
+        <div class="tarjeta" *ngFor="let receta of recetasRandom">
+            <h2>{{receta.name}}</h2>
+            <img [src]="receta.imagen" alt="Imagen de la tarjeta">
+            <img src="assets/favorito.png" alt="Botón de favoritos" class="boton-favoritos" (click)="agregarFavorito(receta)">
+            <ul>
+                <div id="ingredientesFlotantes">
+                    <h3>Ingredientes:</h3>
+                    <ul>
+                      <li *ngFor="let ingrediente of receta.ingredientes">{{ingrediente.name}}</li>
+                    </ul>
+                </div>
+            </ul>
+          </div>
+    </div>
+  </div>
   

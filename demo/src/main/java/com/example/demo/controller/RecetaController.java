@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/recetas")
+@CrossOrigin("*")
 public class RecetaController {
 
     private final RecetaRepository recetaRepository;
