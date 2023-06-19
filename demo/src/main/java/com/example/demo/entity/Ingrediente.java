@@ -27,15 +27,12 @@ public class Ingrediente {
     @ManyToMany(mappedBy = "ingredientes")
     private List<Receta> recetas=new ArrayList<Receta>() ;
 
-    private String image;
 
     public Ingrediente() {
     }
 
-    public Ingrediente(String name,String image,List<Receta> recetas) {
+    public Ingrediente(String name) {
         this.name = name;
-        this.image=image;
-        this.recetas=recetas;
     }
 
     public long getId() {
@@ -58,17 +55,6 @@ public class Ingrediente {
         return recetas;
     }
 
-    public void setRecetas(List<Receta> recetas){
-        this.recetas=recetas;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
    
     @Override
     public String toString() {

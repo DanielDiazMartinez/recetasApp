@@ -20,7 +20,6 @@ public class IngredienteController{
 
 
     public IngredienteController(IngredienteRepository ingredienteRepository) {
-        
         this.ingredienteRepository = ingredienteRepository;
     }
 

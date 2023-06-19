@@ -37,9 +37,8 @@ public class Receta {
     public Receta() {
     }
 
-    public Receta(String name, String image, List<Ingrediente> ingredientes) {
+    public Receta(String name, List<Ingrediente> ingredientes) {
         this.name = name;
-
         this.ingredientes = ingredientes;
         
     }
@@ -67,17 +66,6 @@ public class Receta {
 
     public void setIngredientes(List<Ingrediente> ingredientes){
         this.ingredientes=ingredientes;
-    }
-
-   
-
-
-    public void addIngrediente(Ingrediente ingrediente){
-        this.ingredientes.add(ingrediente);
-    }
-
-    public void deleteIngrediente(Ingrediente ingrediente){
-        this.ingredientes.remove(ingrediente);
     }
 
     @Override
