@@ -31,23 +31,9 @@ public class RecetaController {
         return ResponseEntity.ok(recetas);
     }
 
+    //post que cree un areceta y a la vez cree los objetos Ingrediente de esa receta
     @PostMapping
     public ResponseEntity<Receta> crearReceta(@RequestBody Receta receta) {
-        
-        List<Ingrediente> ingredientes = receta.getIngredientes();
-        if (ingredientes != null && !ingredientes.isEmpty()) {
-            for (Ingrediente ingrediente : ingredientes) {
-                Optional<Ingrediente> ingredienteExistente = ingredienteRepository.findById(ingrediente.getId());
-                if (ingredienteExistente.isEmpty()) {
-                
-                    ingrediente = ingredienteRepository.save(ingrediente);
-                } else {
-             
-                    ingrediente = ingredienteExistente.get();
-                }
-            }
-        }
-      
         recetaRepository.save(receta);
         return ResponseEntity.status(HttpStatus.CREATED).body(receta);
     }
@@ -63,17 +49,14 @@ public class RecetaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Receta> actualizarReceta(@PathVariable Long id, @RequestBody Receta recetaActualizada) {
-        Receta recetaExistente = recetaRepository.findById(id).orElse(null);
-        if (recetaExistente != null) {
-            
-            recetaExistente.setName(recetaActualizada.getName());
-
-            recetaExistente.setIngredientes(recetaActualizada.getIngredientes());
-
-            recetaRepository.save(recetaExistente);
-
-            return ResponseEntity.ok(recetaExistente);
+    public ResponseEntity<Receta> actualizarReceta(@PathVariable Long id, @RequestBody Receta receta) {
+        Optional<Receta> recetaOptional = recetaRepository.findById(id);
+        if (recetaOptional.isPresent()) {
+            Receta recetaEncontrada = recetaOptional.get();
+            recetaEncontrada.setName(receta.getName());
+            recetaEncontrada.setIngredientes(receta.getIngredientes());
+            recetaRepository.save(recetaEncontrada);
+            return ResponseEntity.ok(recetaEncontrada);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -89,4 +72,35 @@ public class RecetaController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/{id}/ingredientes")
+    public ResponseEntity<Receta> agregarIngrediente(@PathVariable Long id, @RequestBody Ingrediente ingrediente) {
+        Receta receta = recetaRepository.findById(id).orElse(null);
+        if (receta != null) {
+            ingredienteRepository.save(ingrediente);
+            receta.getIngredientes().add(ingrediente);
+            recetaRepository.save(receta);
+            return ResponseEntity.ok(receta);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}/ingredientes/{idIngrediente}")
+    public ResponseEntity<Receta> eliminarIngrediente(@PathVariable Long id, @PathVariable Long idIngrediente) {
+        Receta receta = recetaRepository.findById(id).orElse(null);
+        if (receta != null) {
+            Ingrediente ingrediente = ingredienteRepository.findById(idIngrediente).orElse(null);
+            if (ingrediente != null) {
+                receta.getIngredientes().remove(ingrediente);
+                recetaRepository.save(receta);
+                return ResponseEntity.ok(receta);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
