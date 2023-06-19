@@ -36,7 +36,7 @@ public class RecetaController {
         List<Ingrediente> ingredientes = receta.ingredientes();
         if (ingredientes != null && !ingredientes.isEmpty()) {
             for (Ingrediente ingrediente : ingredientes) {
-                Optional<Ingrediente> ingredienteExistente = ingredienteRepository.findById(ingrediente.id());
+                Optional<Ingrediente> ingredienteExistente = ingredienteRepository.findById(ingrediente.getId());
                 if (ingredienteExistente.isEmpty()) {
                 
                     ingrediente = ingredienteRepository.save(ingrediente);
@@ -66,7 +66,7 @@ public class RecetaController {
         Receta recetaExistente = recetaRepository.findById(id).orElse(null);
         if (recetaExistente != null) {
             
-            recetaExistente.setName(recetaActualizada.name());
+            recetaExistente.setName(recetaActualizada.getName());
 
             recetaExistente.setIngredientes(recetaActualizada.ingredientes());
 
