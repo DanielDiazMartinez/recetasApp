@@ -1,0 +1,20 @@
+
+//centrar el formulario en la p en el body
+    body {
+        text-align: center;
+    }
+    form {
+     
+      width: 300px;
+      margin-left: 200px;
+    }
+    //necesito que label he input esten en la misma linea se se
+
+    label, input {
+        display: inline-block;
+        margin: 10px;
+
+    }
+    button {
+      margin-top: 10px;
+    }
