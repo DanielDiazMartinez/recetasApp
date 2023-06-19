@@ -1,0 +1,87 @@
+@media (min-width: 1536px) {
+  .container {
+    max-width: 100%;
+  
+  }
+}
+.container {
+  margin-left: 200px;
+  width: calc(100% - 200px);
+}
+
+.tarjeta-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  
+}
+
+.tarjeta {
+  width: calc(33.3% - 292px);
+  margin: 10px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+
+img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.boton-favoritos {
+  width: 30px; /* Ajusta el ancho según tus necesidades */
+  height: 30px; /* Ajusta la altura según tus necesidades */
+}
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+li {
+  margin-bottom: 5px;
+}
+/* Estilo del div flotante */
+#ingredientesFlotantes {
+  position: fixed;
+  top:0;
+  left: 0;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  display: none; /* Ocultar inicialmente */
+}
+
+/* Estilo para mostrar el div al pasar el ratón por encima */
+.tarjeta:hover #ingredientesFlotantes {
+  display: block;
+}
+
+/* Estilo para animar la aparición del div */
+.tarjeta:hover #ingredientesFlotantes {
+  animation: fadeIn 1s;
+}
+
+/* Animación de fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

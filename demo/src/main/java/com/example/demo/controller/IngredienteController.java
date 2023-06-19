@@ -13,13 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ingredientes")
+@CrossOrigin("*")
 public class IngredienteController{
 
     private final IngredienteRepository ingredienteRepository;
 
 
     public IngredienteController(IngredienteRepository ingredienteRepository) {
-        
         this.ingredienteRepository = ingredienteRepository;
     }
 

@@ -27,6 +27,7 @@ public class Ingrediente {
     @ManyToMany(mappedBy = "ingredientes")
     private List<Receta> recetas=new ArrayList<Receta>() ;
 
+
     public Ingrediente() {
     }
 
@@ -49,13 +50,9 @@ public class Ingrediente {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public List<Receta> getRecetas(){
-        return this.recetas;
-   }
-   
-    public void setRecetas(List<Receta> recetas){
-        this.recetas=recetas;
+        return recetas;
     }
 
    
@@ -64,4 +61,5 @@ public class Ingrediente {
         return "Ingrediente [id=" + id + ", name=" + name + ", recetas=" + recetas + "]";
     }
 
+  
 }
