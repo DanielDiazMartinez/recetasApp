@@ -56,12 +56,14 @@ li {
 /* Estilo del div flotante */
 #ingredientesFlotantes {
   position: fixed;
-  top:0;
+  top: 300px; /* Ajusta la distancia desde la parte superior */
   left: 0;
+  width: 158px; /* Ancho de 200px */
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 2px solid orange; /* Borde de 2px de ancho y color naranja */
   z-index: 9999;
   display: none; /* Ocultar inicialmente */
 }
@@ -71,17 +73,3 @@ li {
   display: block;
 }
 
-/* Estilo para animar la aparición del div */
-.tarjeta:hover #ingredientesFlotantes {
-  animation: fadeIn 1s;
-}
-
-/* Animación de fade-in */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}

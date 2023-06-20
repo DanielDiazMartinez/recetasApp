@@ -1,9 +1,9 @@
 <div class="body">
-  <button (click)="openPopup()">Abrir Popup</button>
+  <button class="open-popup-button" (click)="openPopup()">Crear Receta</button>
+
   <div class="popup" *ngIf="isPopupOpen">
-    
     <div class="container">
-    <h2>Crear Receta</h2>
+      <h2>Crear Receta</h2>
 
       <form [formGroup]="recipeForm" (ngSubmit)="submitForm()">
         <div>
@@ -29,21 +29,22 @@
     </div>
   </div>
 </div>
-
-
 <div class="container-recetas">
   <div class="tarjeta-container">
-      <div class="tarjeta" *ngFor="let receta of recetas">
-          <h2>{{receta.name}}</h2>
-          <img src="assets/default.jpg" alt="Imagen de la tarjeta">
+    <div class="tarjeta" *ngFor="let receta of recetas">
+      <h2>{{receta.name}}</h2>
+      <img src="assets/default.jpg" alt="Imagen de la tarjeta" (click)="cargarRecetaExistente(receta)">
+      <ul>
+        <div id="ingredientesFlotantes">
+          <h3>Ingredientes:</h3>
           <ul>
-              <div id="ingredientesFlotantes">
-                  <h3>Ingredientes:</h3>
-                  <ul>
-                    <li *ngFor="let ingrediente of receta.ingredientes">{{ingrediente.name}}</li>
-                  </ul>
-              </div>
+            <li *ngFor="let ingrediente of receta.ingredientes">{{ingrediente.name}}</li>
           </ul>
         </div>
+      </ul>
+      <img src="assets/boton-eliminar.png" alt="Eliminar" class="eliminar-icon" (click)="eliminarRecetaApi(receta)">
+
   </div>
 </div>
+
+

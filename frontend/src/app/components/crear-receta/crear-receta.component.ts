@@ -1,7 +1,9 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators,FormControl, AbstractControl } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators,FormsModule , AbstractControl } from '@angular/forms';
 import { RecetaDTO } from 'src/app/dto/receta.dto';
 import { ApiService } from 'src/app/services/api.service';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-crear-receta',
@@ -16,11 +18,16 @@ export class CrearRecetaComponent {
 
   recetas: RecetaDTO[] = [];  
 
+  filtroNombre!: string; 
+
+  isModifying: boolean = false;
+  
   constructor(private formBuilder: FormBuilder,private elementRef: ElementRef,private apiService: ApiService) { }
   
   ngOnInit() {
     this.obtenerRecetasApi();
     this.recipeForm = this.formBuilder.group({
+      id: [null], 
       name: ['', Validators.required],
       ingredients: this.formBuilder.array([])
     });
@@ -35,6 +42,7 @@ export class CrearRecetaComponent {
       name: ['', [Validators.required]]
     }));
   }
+
   getIngredientFormControls(): AbstractControl[] {
     return (this.recipeForm.get('ingredients') as FormArray).controls;
   }
@@ -45,18 +53,36 @@ export class CrearRecetaComponent {
 
   submitForm() {
     if (this.recipeForm.valid) {
-      console.log(this.recipeForm.value);
-      const receta: RecetaDTO = {
-        id: 0, // Puedes asignar un valor adecuado al ID si es necesario
-        name: this.recipeForm.value.name,
-        imagen: '', // Asigna la ruta de la imagen si corresponde
-        ingredientes: this.recipeForm.value.ingredients
-      };
-     
+      
+  
+      if (this.isModifying) {
+        // Realizar la lógica de modificación
+        const receta: RecetaDTO = {
+          id: this.recipeForm.value.id,
+          name: this.recipeForm.value.name,
+          imagen: '',
+          ingredientes: this.recipeForm.value.ingredients
+        };
+        console.log(receta);
+        this.eliminarRecetaApi(receta);
+        this.addRecetaApi(receta);
+        this.isModifying = false;
+        
+      } else {
+        // Realizar la lógica de creación
+        const receta: RecetaDTO = {
+          id: 0,
+          name: this.recipeForm.value.name,
+          imagen: '',
+          ingredientes: this.recipeForm.value.ingredients
+        };
+        this.addRecetaApi(receta);
+      }
     } else {
-    
+      console.log('Formulario inválido');
     }
   }
+
   hasInvalidIngredient(): boolean {
     const ingredientControls = this.getIngredientFormControls();
     return ingredientControls.some(control => control.invalid);
@@ -74,15 +100,65 @@ export class CrearRecetaComponent {
   }
 
   closePopup() {
+    const ingredientsArray = this.recipeForm.get('ingredients') as FormArray;
+    ingredientsArray.clear();
+    this.recipeForm.reset();
     this.isPopupOpen = false;
   }
-
-  //llamada a la apiService
 
   obtenerRecetasApi(){
     this.apiService.obtenerRecetas().subscribe(data =>{ 
       this.recetas = data;
       console.log(this.recetas);});
   }
+  
+  cargarRecetaExistente(receta: RecetaDTO) {
+    this.recipeForm.patchValue({
+      id: receta.id,
+      name: receta.name
+    });
+  
+    const ingredientControls = this.recipeForm.get('ingredients') as FormArray;
+    ingredientControls.clear();
+  
+    receta.ingredientes.forEach(ingrediente => {
+      ingredientControls.push(
+        this.formBuilder.group({
+          name: [ingrediente.name, Validators.required]
+        })
+      );
+    });
+    this.isModifying = true;
+    this.isPopupOpen = true;
+  }
+
+  addRecetaApi(receta: RecetaDTO) {
+
+    const existeReceta = this.recetas.find(r => r.name === receta.name);
+  
+    if (existeReceta) {
+      console.log('La receta ya existe:');
+      
+    } else {
+      this.apiService.addReceta(receta).subscribe(data => {
+        this.recetas.push(data);
+        
+      });
+    }
+  }
+
+  eliminarRecetaApi(receta: RecetaDTO) {
+    this.apiService.eliminarReceta(receta.id).subscribe(data => {
+      this.recetas = this.recetas.filter(r => r.id !== receta.id);
+    });
+  }
+
+  modificarRecetaApi(receta: RecetaDTO) {
+    this.apiService.modificarReceta(receta).subscribe(data => {
+      const index = this.recetas.findIndex(r => r.id === receta.id);
+      this.recetas[index] = data;
+    });
+  }
+
 
 }

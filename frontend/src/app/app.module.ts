@@ -7,7 +7,7 @@ import { BarraLateralComponent } from './components/barra-lateral/barra-lateral.
 import { ListaRecetasComponent } from './components/lista-recetas/lista-recetas.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CrearRecetaComponent } from './components/crear-receta/crear-receta.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    
+    FormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 
   .body{
-    margin-left: 200px;
+    margin-left: 210px;
+    margin-top: 100px;
   }
   .container {
     display: flex;
@@ -51,7 +52,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.493);
+    background-color: white;
     width: 400px;
     padding: 20px;
     border-radius: 10px;
@@ -172,35 +173,40 @@
     margin-bottom: 5px;
   }
   /* Estilo del div flotante */
-  #ingredientesFlotantes {
-    position: fixed;
-    top:0;
-    left: 0;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    display: none; /* Ocultar inicialmente */
-  }
+ /* Estilo del div flotante */
+#ingredientesFlotantes {
+  position: fixed;
+  top: 300px; /* Ajusta la distancia desde la parte superior */
+  left: 0;
+  width: 158px; /* Ancho de 200px */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 2px solid orange; /* Borde de 2px de ancho y color naranja */
+  z-index: 9999;
+  display: none; /* Ocultar inicialmente */
+}
+
   
   /* Estilo para mostrar el div al pasar el ratón por encima */
   .tarjeta:hover #ingredientesFlotantes {
     display: block;
   }
   
-  /* Estilo para animar la aparición del div */
-  .tarjeta:hover #ingredientesFlotantes {
-    animation: fadeIn 1s;
-  }
   
-  /* Animación de fade-in */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+
+  .eliminar-icon {
+    width: 20px; /* Ajusta el ancho según tus necesidades */
+    height: auto; /* Ajusta la altura proporcionalmente al ancho */
   }
-  
+  .open-popup-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #297373;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }

@@ -50,19 +50,26 @@ public class RecetaController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Receta> actualizarReceta(@PathVariable Long id, @RequestBody Receta receta) {
-        Optional<Receta> recetaOptional = recetaRepository.findById(id);
-        if (recetaOptional.isPresent()) {
-            Receta recetaEncontrada = recetaOptional.get();
-            recetaEncontrada.setName(receta.getName());
-            recetaEncontrada.setIngredientes(receta.getIngredientes());
-            recetaRepository.save(recetaEncontrada);
-            return ResponseEntity.ok(recetaEncontrada);
-        } else {
-            return ResponseEntity.notFound().build();
+  @PutMapping("/{id}")
+public ResponseEntity<Receta> actualizarReceta(@PathVariable Long id, @RequestBody Receta receta) {
+    Optional<Receta> recetaOptional = recetaRepository.findById(id);
+    if (recetaOptional.isPresent()) {
+        Receta recetaEncontrada = recetaOptional.get();
+        recetaEncontrada.setName(receta.getName());
+        
+        // Agregar nuevos ingredientes si no están ya presentes en la receta
+        for (Ingrediente ingrediente : receta.getIngredientes()) {
+            if (!recetaEncontrada.getIngredientes().contains(ingrediente)) {
+                recetaEncontrada.getIngredientes().add(ingrediente);
+            }
         }
+        
+        recetaRepository.save(recetaEncontrada);
+        return ResponseEntity.ok(recetaEncontrada);
+    } else {
+        return ResponseEntity.notFound().build();
     }
+}
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarReceta(@PathVariable Long id) {

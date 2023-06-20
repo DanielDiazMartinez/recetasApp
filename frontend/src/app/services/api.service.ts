@@ -18,8 +18,17 @@ export class ApiService {
   
   obtenerRecetas(): Observable<RecetaDTO[]> {
     return this.http.get<RecetaDTO[]>(this.urlAPI+"recetas")
-}
+  }
 
+  addReceta(receta: RecetaDTO): Observable<RecetaDTO> {
+    return this.http.post<RecetaDTO>(this.urlAPI+"recetas", receta)
+  }
+
+  eliminarReceta(id: number): Observable<RecetaDTO> {
+    return this.http.delete<RecetaDTO>(this.urlAPI+"recetas/"+id)
+  }
   
-  
+  modificarReceta(receta: RecetaDTO): Observable<RecetaDTO> {
+    return this.http.put<RecetaDTO>(this.urlAPI+"recetas/"+receta.id, receta)
+  }
 }
