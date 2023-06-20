@@ -31,12 +31,14 @@ public class RecetaController {
         return ResponseEntity.ok(recetas);
     }
 
-   
+   //post que genere los ingredientes y la receta
     @PostMapping
     public ResponseEntity<Receta> crearReceta(@RequestBody Receta receta) {
+        ingredienteRepository.saveAll(receta.getIngredientes());
         recetaRepository.save(receta);
         return ResponseEntity.status(HttpStatus.CREATED).body(receta);
-    }
+    }   
+   
 
     @GetMapping("/{id}")
     public ResponseEntity<Receta> obtenerRecetaPorId(@PathVariable Long id) {

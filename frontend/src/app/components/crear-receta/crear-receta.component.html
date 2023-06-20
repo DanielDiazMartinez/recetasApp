@@ -1,24 +1,49 @@
-<div class="container">
-<h2>Crear Receta</h2>
+<div class="body">
+  <button (click)="openPopup()">Abrir Popup</button>
+  <div class="popup" *ngIf="isPopupOpen">
+    
+    <div class="container">
+    <h2>Crear Receta</h2>
 
-<form [formGroup]="recipeForm" (ngSubmit)="submitForm()">
-  <div>
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" formControlName="name" required>
-    <div *ngIf="recipeForm.get('name')?.invalid && recipeForm.get('name')?.touched" class="mat-error">
-      Nombre es requerido.
+      <form [formGroup]="recipeForm" (ngSubmit)="submitForm()">
+        <div>
+          <label for="name">Nombre:</label>
+          <input type="text" id="name" formControlName="name" required>
+          <div *ngIf="recipeForm.get('name')?.invalid && recipeForm.get('name')?.touched" class="mat-error">
+            Nombre es requerido.
+          </div>
+        </div>
+
+        <h3>Ingredientes:</h3>
+        <div formArrayName="ingredients">
+          <div *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i" class="ingredient-item">
+            <input type="text" formControlName="name" required>
+            <img src="assets/boton-eliminar.png" alt="Eliminar" class="delete-icon" (click)="removeIngredient(i, $event)">
+          </div>
+        </div>
+        <button type="button" (click)="addIngredient()">Agregar Ingrediente</button>
+
+        <button type="submit" [disabled]="!recipeForm.valid || hasInvalidIngredient()">Guardar</button>
+
+      </form>
     </div>
   </div>
+</div>
 
-  <h3>Ingredientes:</h3>
-  <div formArrayName="ingredients">
-    <div *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i" class="ingredient-item">
-      <input type="text" formControlName="name" required>
-      <img src="assets/boton-eliminar.png" alt="Eliminar" class="delete-icon" (click)="removeIngredient(i)">
-    </div>
+
+<div class="container-recetas">
+  <div class="tarjeta-container">
+      <div class="tarjeta" *ngFor="let receta of recetas">
+          <h2>{{receta.name}}</h2>
+          <img src="assets/default.jpg" alt="Imagen de la tarjeta">
+          <ul>
+              <div id="ingredientesFlotantes">
+                  <h3>Ingredientes:</h3>
+                  <ul>
+                    <li *ngFor="let ingrediente of receta.ingredientes">{{ingrediente.name}}</li>
+                  </ul>
+              </div>
+          </ul>
+        </div>
   </div>
-  <button type="button" (click)="addIngredient()">Agregar Ingrediente</button>
-
-  <button type="submit" [disabled]="!recipeForm.valid">Guardar</button>
-</form>
 </div>
