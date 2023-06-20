@@ -1,0 +1,19 @@
+<div>
+    <h2>Crear Receta</h2>
+  
+    <form (ngSubmit)="agregarIngrediente()">
+      <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" [(ngModel)]="nombre">
+      
+  
+      <h3>Ingredientes:</h3>
+      <ul>
+        <li *ngFor="let ingrediente of ingredientes">{{ ingrediente }}</li>
+      </ul>
+  
+      <button type="button" (click)="agregarIngrediente()" class="btn-agregar">Agregar  danison543 Ingrediente</button>
+  
+      <button type="submit" class="btn-guardar">Guardar Receta</button>
+    </form>
+    
+  </div> 
