@@ -31,7 +31,7 @@ public class RecetaController {
         return ResponseEntity.ok(recetas);
     }
 
-    //post que cree un areceta y a la vez cree los objetos Ingrediente de esa receta
+   
     @PostMapping
     public ResponseEntity<Receta> crearReceta(@RequestBody Receta receta) {
         recetaRepository.save(receta);
@@ -103,4 +103,15 @@ public class RecetaController {
         }
     }
 
+    @PutMapping("/{id}/favorito")
+    public ResponseEntity<Receta> actualizarFavorito(@PathVariable Long id, @RequestBody Receta receta) {
+        Optional<Receta> recetaOptional = recetaRepository.findById(id);
+        if (recetaOptional.isPresent()) {
+            recetaOptional.get().setFavorito(!recetaOptional.get().isFavorito());
+            recetaRepository.save(recetaOptional.get());
+            return ResponseEntity.ok(recetaOptional.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

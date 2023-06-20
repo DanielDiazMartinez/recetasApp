@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RecetaDTO } from 'src/app/dto/receta.dto';
 
 @Component({
   selector: 'app-crear-receta',
@@ -7,11 +9,39 @@ import { Component } from '@angular/core';
 })
 export class CrearRecetaComponent {
 
-  nombreReceta: string="";
-  ingredientes: string[] = [];
+  
+  recipeForm!: FormGroup;
 
-  agregarIngrediente() {
-    this.ingredientes.push('');
+  constructor(private formBuilder: FormBuilder) { }
+  
+  ngOnInit() {
+    this.recipeForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      ingredients: this.formBuilder.array([])
+    });
   }
 
+  get ingredients() {
+    return this.recipeForm.get('ingredients') as FormArray;
+  }
+
+  addIngredient() {
+    this.ingredients.push(this.formBuilder.control('', Validators.required));
+  }
+
+  removeIngredient(index: number) {
+    this.ingredients.removeAt(index);
+  }
+
+  submitForm() {
+    if (this.recipeForm.valid) {
+      console.log(this.recipeForm.value);
+      // const receta: RecetaDTO = this.recipeForm.value;
+      // console.log(receta);
+    } else {
+      //El formulario no es válido, maneja el caso según tus necesidades
+    }
+  }
+
+  
 }

@@ -17,14 +17,15 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "ingredientes") 
 public class Ingrediente {
 
-    //entitny que tenga relacion manytomany con receta y que al crear un ingrediente se agregue la receta que pertenece
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @NotBlank(message = "Name is mandatory")    
     private String name;
+
+
+    
 
     @ManyToMany(mappedBy = "ingredientes")
     private List<Receta> recetas = new ArrayList<Receta>();
