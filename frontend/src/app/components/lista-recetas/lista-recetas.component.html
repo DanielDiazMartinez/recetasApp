@@ -3,7 +3,7 @@
         <div class="tarjeta" *ngFor="let receta of recetasRandom">
             <h2>{{receta.name}}</h2>
             <img [src]="receta.imagen" alt="Imagen de la tarjeta">
-            <img src="assets/favorito.png" alt="Botón de favoritos" class="boton-favoritos" (click)="addRecetaApi(receta)">
+            <img src="assets/anadir.png" alt="Botón de favoritos" class="boton-favoritos" (click)="addRecetaApi(receta)">
             <ul>
                 <div id="ingredientesFlotantes">
                     <h3>Ingredientes:</h3>

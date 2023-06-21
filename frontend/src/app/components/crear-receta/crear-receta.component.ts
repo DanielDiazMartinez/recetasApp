@@ -66,7 +66,6 @@ export class CrearRecetaComponent {
           ingredientes: this.recipeForm.value.ingredients
         };
         console.log(receta);
-        this.eliminarRecetaApi(receta);
         this.addRecetaApi(receta);
         this.isModifying = false;
         
@@ -79,6 +78,7 @@ export class CrearRecetaComponent {
           ingredientes: this.recipeForm.value.ingredients
         };
         this.addRecetaApi(receta);
+        this.obtenerImagenesRecetasByName() 
       }
     } else {
       console.log('Formulario inválido');
