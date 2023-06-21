@@ -31,12 +31,14 @@ public class RecetaController {
         return ResponseEntity.ok(recetas);
     }
 
-    //post que cree un areceta y a la vez cree los objetos Ingrediente de esa receta
+   //post que genere los ingredientes y la receta
     @PostMapping
     public ResponseEntity<Receta> crearReceta(@RequestBody Receta receta) {
+        ingredienteRepository.saveAll(receta.getIngredientes());
         recetaRepository.save(receta);
         return ResponseEntity.status(HttpStatus.CREATED).body(receta);
-    }
+    }   
+   
 
     @GetMapping("/{id}")
     public ResponseEntity<Receta> obtenerRecetaPorId(@PathVariable Long id) {
@@ -48,19 +50,26 @@ public class RecetaController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Receta> actualizarReceta(@PathVariable Long id, @RequestBody Receta receta) {
-        Optional<Receta> recetaOptional = recetaRepository.findById(id);
-        if (recetaOptional.isPresent()) {
-            Receta recetaEncontrada = recetaOptional.get();
-            recetaEncontrada.setName(receta.getName());
-            recetaEncontrada.setIngredientes(receta.getIngredientes());
-            recetaRepository.save(recetaEncontrada);
-            return ResponseEntity.ok(recetaEncontrada);
-        } else {
-            return ResponseEntity.notFound().build();
+  @PutMapping("/{id}")
+public ResponseEntity<Receta> actualizarReceta(@PathVariable Long id, @RequestBody Receta receta) {
+    Optional<Receta> recetaOptional = recetaRepository.findById(id);
+    if (recetaOptional.isPresent()) {
+        Receta recetaEncontrada = recetaOptional.get();
+        recetaEncontrada.setName(receta.getName());
+        
+        // Agregar nuevos ingredientes si no están ya presentes en la receta
+        for (Ingrediente ingrediente : receta.getIngredientes()) {
+            if (!recetaEncontrada.getIngredientes().contains(ingrediente)) {
+                recetaEncontrada.getIngredientes().add(ingrediente);
+            }
         }
+        
+        recetaRepository.save(recetaEncontrada);
+        return ResponseEntity.ok(recetaEncontrada);
+    } else {
+        return ResponseEntity.notFound().build();
     }
+}
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarReceta(@PathVariable Long id) {
@@ -103,4 +112,15 @@ public class RecetaController {
         }
     }
 
+    @PutMapping("/{id}/favorito")
+    public ResponseEntity<Receta> actualizarFavorito(@PathVariable Long id, @RequestBody Receta receta) {
+        Optional<Receta> recetaOptional = recetaRepository.findById(id);
+        if (recetaOptional.isPresent()) {
+            recetaOptional.get().setFavorito(!recetaOptional.get().isFavorito());
+            recetaRepository.save(recetaOptional.get());
+            return ResponseEntity.ok(recetaOptional.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

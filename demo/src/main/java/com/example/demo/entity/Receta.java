@@ -34,6 +34,8 @@ public class Receta {
         inverseJoinColumns = @JoinColumn(name = "ingrediente_id"))
     private List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 
+    private boolean favorito;
+
     public Receta() {
     }
 
@@ -44,19 +46,21 @@ public class Receta {
     public Receta(String name, List<Ingrediente> ingredientes) {
         this.name = name;
         this.ingredientes = ingredientes;
+        this.favorito=false;
     }
 
     public Receta(long id, String name, List<Ingrediente> ingredientes) {
         this.id = id;
         this.name = name;
         this.ingredientes = ingredientes;
+        this.favorito=false;
     }
 
     public Receta(long id, String name) {
         this.id = id;
         this.name = name;
+        this.favorito=false;
     }  
-
 
     
     public long getId() {
@@ -73,6 +77,14 @@ public class Receta {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(boolean favorito) {
+        this.favorito = favorito;
     }
 
    public List<Ingrediente> getIngredientes() {

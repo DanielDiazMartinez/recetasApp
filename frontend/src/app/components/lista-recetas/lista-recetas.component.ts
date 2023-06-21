@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RecetaDTO } from 'src/app/dto/receta.dto';
+import { ApiService } from 'src/app/services/api.service';
 import { EdamamService } from 'src/app/services/edamam.service';
 
 @Component({
@@ -13,15 +14,14 @@ export class ListaRecetasComponent {
 
   recetasRandom!: RecetaDTO[];
   
-  constructor(private servicio: EdamamService) {}
+  constructor(private servicio: EdamamService, private apiService: ApiService) {}
 
   ngOnInit() {
     this.servicio.obtenerRecetasRandom().subscribe(data=>this.recetasRandom=data);
     
   }
   
-  agregarFavorito(receta:RecetaDTO){
-    this.servicio.addFavoritos(receta);
+  addRecetaApi(receta: RecetaDTO) {
+    this.apiService.addReceta(receta).subscribe();
   }
-
 }

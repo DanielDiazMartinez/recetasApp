@@ -48,8 +48,9 @@ export class EdamamService {
       );
   }
 
-  addFavoritos(receta:RecetaDTO){
-    return this.http.post(this.urlAPI,receta)
+  obtenerImagenRecetaByName(name: string): Observable<any> {
+    return this.http.get<any>(`https://api.edamam.com/api/recipes/v2?type=public&app_id=06381eae&app_key=a25cb389cb5522ede6f79c4ac1fc8a89&q=${name}`);
   }
+ 
   
 }
