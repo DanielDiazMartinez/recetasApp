@@ -33,7 +33,7 @@
   <div class="tarjeta-container">
     <div class="tarjeta" *ngFor="let receta of recetas">
       <h2>{{receta.name}}</h2>
-      <img src="assets/default.jpg" alt="Imagen de la tarjeta" (click)="cargarRecetaExistente(receta)">
+      <img [src]="receta.imagen" alt="Imagen de la tarjeta" (click)="cargarRecetaExistente(receta)">
       <ul>
         <div id="ingredientesFlotantes">
           <h3>Ingredientes:</h3>

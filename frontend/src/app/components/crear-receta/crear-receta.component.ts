@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators,FormsModule , AbstractCon
 import { RecetaDTO } from 'src/app/dto/receta.dto';
 import { ApiService } from 'src/app/services/api.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EdamamService } from 'src/app/services/edamam.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class CrearRecetaComponent {
 
   isModifying: boolean = false;
   
-  constructor(private formBuilder: FormBuilder,private elementRef: ElementRef,private apiService: ApiService) { }
+  constructor(private formBuilder: FormBuilder,private elementRef: ElementRef,private apiService: ApiService,private edamanService: EdamamService) { }
   
   ngOnInit() {
     this.obtenerRecetasApi();
@@ -31,6 +32,7 @@ export class CrearRecetaComponent {
       name: ['', Validators.required],
       ingredients: this.formBuilder.array([])
     });
+    this.obtenerImagenesRecetasByName();
   }
 
   get ingredients() {
@@ -106,12 +108,7 @@ export class CrearRecetaComponent {
     this.isPopupOpen = false;
   }
 
-  obtenerRecetasApi(){
-    this.apiService.obtenerRecetas().subscribe(data =>{ 
-      this.recetas = data;
-      console.log(this.recetas);});
-  }
-  
+ 
   cargarRecetaExistente(receta: RecetaDTO) {
     this.recipeForm.patchValue({
       id: receta.id,
@@ -153,12 +150,23 @@ export class CrearRecetaComponent {
     });
   }
 
-  modificarRecetaApi(receta: RecetaDTO) {
-    this.apiService.modificarReceta(receta).subscribe(data => {
-      const index = this.recetas.findIndex(r => r.id === receta.id);
-      this.recetas[index] = data;
+
+  obtenerRecetasApi() {
+    this.apiService.obtenerRecetas().subscribe(data => { 
+      this.recetas = data;
+      console.log(this.recetas);
+      this.obtenerImagenesRecetasByName(); // Llamar al método para obtener las imágenes después de obtener las recetas
     });
   }
-
-
+  
+  obtenerImagenesRecetasByName() {
+    this.recetas.forEach(receta => {
+      this.edamanService.obtenerImagenRecetaByName(receta.name).subscribe(data => {
+        if (data.hits.length > 0) {
+          const imagen = data.hits[0].recipe.image;
+          receta.imagen = imagen;
+        }
+      });
+    });
+  }
 }
